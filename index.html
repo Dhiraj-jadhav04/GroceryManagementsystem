@@ -70,7 +70,16 @@
     
     <script>
         const productOptions = {
-            "Apple": 50, "Banana": 20, "Milk": 40, "Bread": 30, "Rice": 60
+            "Apple": 50, "Banana": 20, "Milk": 40, "Bread": 30, "Rice": 60,
+            "Tomato": 25, "Potato": 15, "Onion": 20, "Carrot": 35, "Cabbage": 30,
+            "Eggs": 70, "Chicken": 250, "Mutton": 600, "Fish": 350, "Cheese": 100,
+            "Butter": 90, "Yogurt": 50, "Sugar": 45, "Salt": 20, "Pepper": 80,
+            "Oil": 150, "Flour": 55, "Pasta": 80, "Noodles": 40, "Chocolate": 120,
+            "Biscuits": 60, "Tea": 150, "Coffee": 200, "Soft Drink": 50, "Juice": 100,
+            "Water Bottle": 20, "Honey": 250, "Jam": 90, "Ketchup": 70, "Mayonnaise": 85,
+            "Oats": 110, "Cornflakes": 130, "Lentils": 95, "Chickpeas": 100, "Beans": 85,
+            "Cashews": 900, "Almonds": 750, "Walnuts": 850, "Pistachios": 950, "Raisins": 400,
+            "Coconut": 40, "Cucumber": 25, "Mango": 150, "Orange": 80, "Grapes": 90
         };
         
         const productSelect = document.getElementById("product");
@@ -126,7 +135,6 @@
                 alert("Please enter a valid 10-digit phone number.");
                 return;
             }
-            
             document.getElementById("thank-you-popup").classList.remove("hidden");
             setTimeout(() => {
                 document.getElementById("thank-you-popup").classList.add("hidden");
