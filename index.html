@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Grocery Store Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 p-6">
+    <div class="max-w-4xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+        <h1 class="text-2xl font-bold mb-4 text-center">Grocery Store Management</h1>
+        
+        <div class="grid grid-cols-3 gap-4 mb-4">
+            <div>
+                <label class="block font-medium">Product Name</label>
+                <select id="product" class="w-full p-2 border rounded">
+                    <option value="" disabled selected>Select a product</option>
+                </select>
+            </div>
+            <div>
+                <label class="block font-medium">Quantity</label>
+                <input type="number" id="quantity" class="w-full p-2 border rounded" min="1">
+            </div>
+            <div>
+                <label class="block font-medium">Price</label>
+                <input type="text" id="price" class="w-full p-2 border rounded" readonly>
+            </div>
+        </div>
+        
+        <div class="flex space-x-4 mb-4">
+            <button onclick="addProduct()" class="bg-green-500 text-white px-4 py-2 rounded">Add Product</button>
+            <button onclick="deleteProduct()" class="bg-red-500 text-white px-4 py-2 rounded">Delete Product</button>
+        </div>
+        
+        <input type="text" id="search" placeholder="Search product..." class="w-full p-2 border rounded mb-4" onkeyup="searchProduct()">
+        
+        <table class="w-full border-collapse border border-gray-300">
+            <thead>
+                <tr class="bg-gray-200">
+                    <th class="border p-2">Name</th>
+                    <th class="border p-2">Quantity</th>
+                    <th class="border p-2">Price</th>
+                </tr>
+            </thead>
+            <tbody id="product-list"></tbody>
+        </table>
+    </div>
+
+    <script>
+        const productOptions = {
+            "Apple": 50, "Banana": 20, "Milk": 40, "Bread": 30, "Rice": 60, "Eggs": 70,
+            "Tomato": 25, "Potato": 30, "Onion": 40, "Carrot": 35, "Cabbage": 20, "Spinach": 15,
+            "Chicken": 200, "Fish": 180, "Mutton": 500, "Paneer": 250, "Butter": 150, "Cheese": 300,
+            "Sugar": 45, "Salt": 20, "Flour": 55, "Pulses": 80, "Cooking Oil": 120, "Tea": 150,
+            "Coffee": 250, "Biscuits": 40, "Noodles": 50, "Ketchup": 100, "Honey": 200, "Jam": 180,
+            "Coconut Oil": 220, "Soap": 45, "Shampoo": 180, "Toothpaste": 90, "Detergent": 110, "Hand Wash": 80
+        };
+        
+        const productDropdown = document.getElementById("product");
+        for (const product in productOptions) {
+            let option = document.createElement("option");
+            option.value = product;
+            option.textContent = product;
+            productDropdown.appendChild(option);
+        }
+        
+        document.getElementById("quantity").addEventListener("input", () => {
+            let product = productDropdown.value;
+            let quantity = document.getElementById("quantity").value;
+            if (product && quantity > 0) {
+                document.getElementById("price").value = productOptions[product] * quantity;
+            }
+        });
+        
+        function addProduct() {
+            let product = productDropdown.value;
+            let quantity = document.getElementById("quantity").value;
+            let price = document.getElementById("price").value;
+            
+            if (!product || quantity <= 0) {
+                alert("Please select a valid product and quantity.");
+                return;
+            }
+            
+            let table = document.getElementById("product-list");
+            let row = table.insertRow();
+            row.insertCell(0).textContent = product;
+            row.insertCell(1).textContent = quantity;
+            row.insertCell(2).textContent = price;
+            
+            document.getElementById("quantity").value = "";
+            document.getElementById("price").value = "";
+        }
+        
+        function deleteProduct() {
+            let table = document.getElementById("product-list");
+            if (table.rows.length > 0) {
+                table.deleteRow(-1);
+            } else {
+                alert("No products to delete.");
+            }
+        }
+        
+        function searchProduct() {
+            let searchValue = document.getElementById("search").value.toLowerCase();
+            let rows = document.getElementById("product-list").rows;
+            for (let row of rows) {
+                row.style.display = row.cells[0].textContent.toLowerCase().includes(searchValue) ? "" : "none";
+            }
+        }
+    </script>
+</body>
+</html>
